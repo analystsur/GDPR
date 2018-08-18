@@ -1,4 +1,50 @@
 /*++++++++++++++++++++++++++++++++
+MORE WORK FOR PRODUCTION ENVIRONMENT THAT DOES NOT NEED TO BE RUN AGAINST THE HR.T_ TABLES.
+
+DESCRIBE HR.T_DEPARTMENTS;
+COMMIT;
+
+INSERT INTO HR.T_departments VALUES 
+( 280
+, 'GDPR'
+, NULL
+, 3300
+);
+   
+COMMIT;
+
+  
+ 
+INSERT INTO HR.T_countries VALUES 
+ ( 'XX'
+ , 'GDPR'
+ , 1 
+ );
+
+COMMIT;
+    
+INSERT INTO HR.T_locations VALUES 
+ ( 3300 
+ , 'GDPR'
+ , 'GDPR'
+ , 'GDPR'
+ , 'GDPR'
+ , 'XX'
+ );
+
+COMMIT;
+  
+ INSERT INTO hr.t_jobs VALUES 
+ ( 'GDPR'
+ , 'General Data Protection Regulation'
+ , 1
+ , 5
+ );
+   
+ commit;
+ ++++++++++++++++++++++++++++++++*/
+
+/*++++++++++++++++++++++++++++++++
 Please test this script against hr.t_employees table. Suren has loaded a mirror copy of hr schema tables as hr.t_Table. 
 Once we successfully test in hr.t_employees, we can use the same successful code base to anonymize data in hr.employees 
 table.
@@ -26,3 +72,19 @@ is no referentail entegrity violation in the future.
 ++++++++++++++++++++++++++++++++*/
 ALTER TABLE HR.T_EMPLOYEES enable ALL TRIGGERS;
 COMMIT;
+
+
+
+/*++++++++++++++++++++++++++++++++
+If you would like to restore the employee_id = 206 to its original state
+-> run step-1 above 
+-> run below script
+-> run step-3 above
+++++++++++++++++++++++++++++++++*/
+  UPDATE HR.T_EMPLOYEES E
+  SET FIRST_NAME = 'William', LAST_NAME = 'Gietz', EMAIL = 'WGIETZ', PHONE_NUMBER = '515.123.8181', 
+  HIRE_DATE = TO_DATE('07-JUN-1994', 'dd-MON-yyyy'), JOB_ID = 'AC_ACCOUNT', SALARY = 8300,
+  MANAGER_ID = 205, DEPARTMENT_ID = 110
+  WHERE E.EMPLOYEE_ID = 206; 
+  
+  COMMIT;
