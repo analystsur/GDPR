@@ -48,7 +48,7 @@ COMMIT;
 This constraint will make sure that the valid values are indeed the values that are available in the APPLICATION table. 
 This ideally should not be hard coded and instead should dynamically check against APPLICATION table. That will be future work.
 ++++++++++++++++++++++++++++++++
-ALTER TABLE HR.T_EMPLOYEES
+ALTER TABLE HR.EMPLOYEES
     ADD CONSTRAINT CK_APPLICATION CHECK (APP_ID IN (100, 101));
 	
 COMMIT;
@@ -89,13 +89,13 @@ ALTER SESSION SET NLS_DATE_FORMAT='DD-MON-YYYY';
 This will make sure any triggers are diabled for us to allow running the update script against employees table.
 ++++++++++++++++++++++++++++++++*/
 
-ALTER TABLE HR.T_EMPLOYEES disable ALL TRIGGERS;
+ALTER TABLE HR.EMPLOYEES disable ALL TRIGGERS;
 COMMIT;
     
 /*++++++++++++++++++++++++++++++++
 Update the record for the requester. this should update the new columns too.
 ++++++++++++++++++++++++++++++++*/	
-UPDATE HR.T_EMPLOYEES E
+UPDATE HR.EMPLOYEES E
   SET FIRST_NAME = 'GRPR', LAST_NAME = 'GDPR', EMAIL = 'GDPR206@SRMINC.COM', PHONE_NUMBER = '111.111.1111', 
   HIRE_DATE = TO_DATE('01-JAN-9999', 'dd-MON-yyyy'), JOB_ID = 'GDPR', SALARY = 1, 
   MANAGER_ID = NULL, DEPARTMENT_ID = 280, ACTIVE_IND = 'N', APP_ID = 101
@@ -107,13 +107,13 @@ COMMIT;
 Once the update script against employees table is executed, we should enable the trigger so there
 is no referentail entegrity violation in the future.
 ++++++++++++++++++++++++++++++++*/
-ALTER TABLE HR.T_EMPLOYEES enable ALL TRIGGERS;
+ALTER TABLE HR.EMPLOYEES enable ALL TRIGGERS;
 COMMIT;
 
 /*++++++++++++++++++++++++++++++++
 If you would like to restore the employee_id = 206 to its original state
 ++++++++++++++++++++++++++++++++*/
-  UPDATE HR.T_EMPLOYEES E
+  UPDATE HR.EMPLOYEES E
   SET FIRST_NAME = 'William', LAST_NAME = 'Gietz', EMAIL = 'WGIETZ', PHONE_NUMBER = '515.123.8181', 
   HIRE_DATE = TO_DATE('07-JUN-1994', 'dd-MON-yyyy'), JOB_ID = 'AC_ACCOUNT', SALARY = 8300,
   MANAGER_ID = 205, DEPARTMENT_ID = 110, ACTIVE_IND = 'Y', APP_ID = 100
