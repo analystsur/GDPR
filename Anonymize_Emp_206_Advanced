@@ -52,6 +52,13 @@ COMMIT;
 ++++++++++++++++++++++++++++++++*/
 
 /*++++++++++++++++++++++++++++++++
+This will make sure the Dates display in YYYY format.
+++++++++++++++++++++++++++++++++*/
+
+ALTER SESSION SET NLS_DATE_FORMAT='DD-MON-YYYY';
+
+
+/*++++++++++++++++++++++++++++++++
 This will make sure any triggers are diabled for us to allow running the update script against employees table.
 ++++++++++++++++++++++++++++++++*/
 
@@ -62,7 +69,7 @@ COMMIT;
 Update the record for the requester. this should update the new columns too.
 ++++++++++++++++++++++++++++++++*/	
 UPDATE HR.T_EMPLOYEES E
-  SET FIRST_NAME = 'GRPR', LAST_NAME = 'GDPR', EMAIL = 'GDPR', PHONE_NUMBER = '111.111.1111', 
+  SET FIRST_NAME = 'GRPR', LAST_NAME = 'GDPR', EMAIL = 'GDPR206@SRMINC.COM', PHONE_NUMBER = '111.111.1111', 
   HIRE_DATE = TO_DATE('01-JAN-9999', 'dd-MON-yyyy'), JOB_ID = 'GDPR', SALARY = 1, 
   MANAGER_ID = NULL, DEPARTMENT_ID = 280, ACTIVE_IND = 'N', APP_ID = 101
   WHERE E.EMPLOYEE_ID = 206; 
